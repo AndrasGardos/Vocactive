@@ -1,0 +1,35 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+.container {
+  user-select: none;
+}
+.play {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Playfair Display", serif;
+  font-size: 40vmin;
+  color: white;
+  cursor: pointer;
+}
+
+.counter {
+  position: absolute;
+  font-family: "Playfair Display", serif;
+  font-size: 5vmin;
+  bottom: 1vmin;
+  right: 1vmin;
+  color: white;
+}
+
+.fullscreen-button {
+  position: absolute;
+  top: 1vmin;
+  right: 1vmin;
+  color: white;
+}
