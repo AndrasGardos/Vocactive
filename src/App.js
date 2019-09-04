@@ -4,6 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Groups from "./Components/Groups";
 import Play from "./Components/Play";
+import SettingsButton from "./Components/SettingsButton";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
         render={() => (
           <Container component="main" maxWidth="xs">
             <CssBaseline />
+            <SettingsButton />
             <Groups />
           </Container>
         )}
