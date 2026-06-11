@@ -1,12 +1,7 @@
-* {
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-}
-
 .container {
   user-select: none;
 }
+
 .play {
   min-height: 100vh;
   display: flex;
@@ -28,8 +23,9 @@
 }
 
 .fullscreen-button {
-  position: absolute;
+  position: absolute !important;
   top: 1vmin;
   right: 1vmin;
-  color: white;
+  color: white !important;
+  z-index: 1;
 }
