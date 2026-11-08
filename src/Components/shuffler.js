@@ -27,7 +27,7 @@ export const DEFAULT_MODE = "single-deck";
 
 // A group with a single student (or mostly identical names) has no order
 // without repeats, so after this many tries settle for the fewest repeats.
-const MAX_SHUFFLES = 1000;
+const MAX_SHUFFLES = 50;
 
 const shuffle = (items) => {
   const result = [...items];
