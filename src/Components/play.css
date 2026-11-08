@@ -1,31 +1,84 @@
 .container {
+  position: relative;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
   user-select: none;
+  cursor: pointer;
+  background: #000;
 }
 
-.play {
-  min-height: 100vh;
+.container.busy {
+  cursor: progress;
+}
+
+.classic {
+  position: absolute;
+  inset: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Playfair Display", serif;
-  font-size: 40vmin;
   color: white;
-  cursor: pointer;
+}
+
+.start-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 6vh;
+  transform: translateX(-50%);
+  z-index: 10;
+  padding: 1.2vmin 3vmin;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-size: max(16px, 3.5vmin);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: hint-pulse 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes hint-pulse {
+  to { transform: translateX(-50%) scale(1.06); }
 }
 
 .counter {
   position: absolute;
+  z-index: 10;
   font-family: "Playfair Display", serif;
   font-size: 5vmin;
   bottom: 1vmin;
-  right: 1vmin;
+  right: 2vmin;
   color: white;
+  text-shadow: 0 0 1vmin rgba(0, 0, 0, 0.6);
+  pointer-events: none;
 }
 
-.fullscreen-button {
-  position: absolute !important;
+.toolbar {
+  position: absolute;
+  z-index: 10;
   top: 1vmin;
+  left: 1vmin;
   right: 1vmin;
-  color: white !important;
-  z-index: 1;
+  display: flex;
+  pointer-events: none;
+}
+
+.toolbar > * {
+  pointer-events: auto;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.toolbar .MuiIconButton-root {
+  color: white;
+  background: rgba(0, 0, 0, 0.25);
+  margin-left: 1vmin;
+}
+
+.toolbar .MuiIconButton-root:hover {
+  background: rgba(0, 0, 0, 0.45);
 }

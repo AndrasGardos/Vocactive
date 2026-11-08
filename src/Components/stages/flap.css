@@ -1,0 +1,118 @@
+.flap-stage {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vh;
+  background: #141414;
+  font-family: "Oswald", "Roboto Condensed", sans-serif;
+}
+
+.flap-header,
+.flap-footer {
+  width: 90vw;
+  display: flex;
+  justify-content: space-between;
+  color: #f5b400;
+  font-size: min(6vh, 6vw);
+  letter-spacing: 0.4vw;
+  white-space: nowrap;
+}
+
+.flap-clock { color: #ddd; }
+
+.flap-status { color: #f5b400; }
+.flap-stage.done .flap-status { animation: flap-blink 0.6s steps(1) infinite; color: #4ade80; }
+
+@keyframes flap-blink {
+  50% { opacity: 0.2; }
+}
+
+.flap-board {
+  padding: 2vmin;
+  background: #050505;
+  border-radius: 1vmin;
+  box-shadow: inset 0 0 3vmin #000, 0 0 0 0.5vmin #2a2a2a;
+}
+
+.flap-row {
+  display: flex;
+  gap: calc(var(--tile) * 0.06);
+  margin: calc(var(--tile) * 0.06) 0;
+}
+
+.flap-tile {
+  position: relative;
+  width: var(--tile);
+  height: calc(var(--tile) * 1.35);
+  perspective: calc(var(--tile) * 4);
+  font-size: calc(var(--tile) * 1.05);
+  font-weight: 500;
+  color: #f2f2f2;
+  line-height: calc(var(--tile) * 1.35);
+  text-align: center;
+}
+
+.flap-stage.done .flap-tile { color: #fff3c4; }
+
+.flap-half {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50%;
+  overflow: hidden;
+  background: linear-gradient(#2c2c2c, #222);
+  border-radius: calc(var(--tile) * 0.08);
+}
+
+.flap-half span {
+  display: block;
+  height: 200%;
+}
+
+.flap-half.top {
+  top: 0;
+  border-bottom: 1px solid #000;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.flap-half.bottom {
+  bottom: 0;
+  background: linear-gradient(#1d1d1d, #262626);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.flap-half.bottom span { transform: translateY(-50%); }
+
+.flap-leaf {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.flap-leaf .flap-half {
+  backface-visibility: hidden;
+}
+
+.flap-leaf .flap-half.top {
+  transform-origin: 50% 100%;
+  animation: flap-fold-top 32ms ease-in forwards;
+}
+
+.flap-leaf .flap-half.bottom {
+  transform-origin: 50% 0;
+  transform: rotateX(90deg);
+  animation: flap-fold-bottom 32ms ease-out 32ms forwards;
+}
+
+@keyframes flap-fold-top {
+  to { transform: rotateX(-90deg); }
+}
+
+@keyframes flap-fold-bottom {
+  to { transform: rotateX(0); }
+}
