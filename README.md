@@ -8,6 +8,22 @@ Usable on smartphones, tablets, laptops, smartboards. The data of the groups are
 
 Offline (PWA) capabilities coming soon :)
 
+## Drawing modes
+When starting a session you can choose how names are drawn:
+- **Teljesen véletlenszerű (totally random)** – every draw is independent, so the same student may come up several times in a row.
+- **Egy pakli (one deck)** – every student is drawn exactly once before the deck is reshuffled.
+- **Dupla pakli (double deck)** – as if each student's name were on two cards: everyone is drawn exactly twice before the deck is reshuffled, but never twice in a row.
+
+## Development
+Built with React, MUI and Vite. Requires Node.js 22.22 or newer.
+
+```sh
+npm install
+npm run dev      # start the dev server
+npm run build    # production build into dist/
+npm run lint     # run ESLint
+```
+
 ## Contribution
 You are welcome to open issues or even pull requests. I'm looking forward to getting feedback from educators.
 
