@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { Navigate, useParams } from "react-router";
+import { Link, Navigate, useParams } from "react-router";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
@@ -9,6 +9,7 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import FullscreenIcon from "@mui/icons-material/Fullscreen";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import Shuffler, { MODES, DEFAULT_MODE } from "./shuffler";
@@ -36,7 +37,7 @@ export default function Play() {
 
   useEffect(lockLandscape, []);
 
-  if (!group) {
+  if (!group || group.members.length === 0) {
     return <Navigate to="/" replace />;
   }
 
@@ -97,6 +98,9 @@ export default function Play() {
             onClick={start}
           >
             Indítás
+          </Button>
+          <Button component={Link} to="/" startIcon={<ArrowBackIcon />}>
+            Vissza
           </Button>
         </Stack>
       </Container>

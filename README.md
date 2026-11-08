@@ -15,7 +15,7 @@ When starting a session you can choose how names are drawn:
 - **Dupla pakli (double deck)** – as if each student's name were on two cards: everyone can be drawn at most twice, and the deck is only reshuffled once it runs out.
 
 ## Development
-Built with React, MUI and Vite.
+Built with React, MUI and Vite. Requires Node.js 22.22 or newer.
 
 ```sh
 npm install

@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import GroupIcon from "@mui/icons-material/Group";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import { parseMembers } from "./storage";
 
 const membersFormatted = (members) => {
   if (members.length < 8) {
@@ -23,7 +24,9 @@ const membersFormatted = (members) => {
 
 export default function Group({ group, groups, setGroups }) {
   const { id, name, members } = group;
-  const [editing, setEditing] = useState(false);
+  // raw text while editing, so separators the teacher is still typing aren't stripped
+  const [draft, setDraft] = useState(null);
+  const editing = draft !== null;
 
   const deleteGroup = () => {
     //TODO : proper dialog here
@@ -33,15 +36,16 @@ export default function Group({ group, groups, setGroups }) {
   };
 
   const handleMembersChange = (event) => {
+    setDraft(event.target.value);
     setGroups(
       groups.map((g) =>
-        g.id === id ? { ...g, members: event.target.value.split(",") } : g
+        g.id === id ? { ...g, members: parseMembers(event.target.value) } : g
       )
     );
   };
 
   return (
-    <Card sx={{ minWidth: 370, m: "10px" }}>
+    <Card sx={{ width: "100%", my: "10px" }}>
       <CardContent>
         <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
           <Avatar>
@@ -64,7 +68,7 @@ export default function Group({ group, groups, setGroups }) {
             label="Csoport tagjai"
             multiline
             fullWidth
-            value={members.join(",")}
+            value={draft}
             margin="normal"
             onChange={handleMembersChange}
           />
@@ -77,11 +81,12 @@ export default function Group({ group, groups, setGroups }) {
           color="primary"
           size="small"
           startIcon={<PlayArrowIcon />}
+          disabled={members.length === 0}
         >
           Start
         </Button>
         <Button
-          onClick={() => setEditing(!editing)}
+          onClick={() => setDraft(editing ? null : members.join(","))}
           color="secondary"
           size="small"
           startIcon={<EditIcon />}
