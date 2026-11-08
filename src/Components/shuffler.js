@@ -17,12 +17,17 @@ export const MODES = [
     id: "double-deck",
     title: "Dupla pakli",
     description:
-      "Mintha minden diák neve két kártyán szerepelne: mindenki legfeljebb " +
-      "kétszer kerülhet sorra, és csak a pakli kifogyása után keverünk újra.",
+      "Mintha minden diák neve két kártyán szerepelne: mindenki pontosan " +
+      "kétszer kerül sorra, mielőtt újrakevernénk, de ugyanaz a diák soha " +
+      "nem jön kétszer egymás után.",
   },
 ];
 
 export const DEFAULT_MODE = "single-deck";
+
+// A group with a single student (or mostly identical names) has no order
+// without repeats, so after this many tries settle for the fewest repeats.
+const MAX_SHUFFLES = 1000;
 
 const shuffle = (items) => {
   const result = [...items];
@@ -33,6 +38,10 @@ const shuffle = (items) => {
   return result;
 };
 
+const countBackToBack = (deck, previous) =>
+  deck.filter((card, i) => card === (i === 0 ? previous : deck[i - 1]))
+    .length;
+
 export default class Shuffler {
   constructor(items, mode = DEFAULT_MODE) {
     this.items = items;
@@ -40,10 +49,20 @@ export default class Shuffler {
     this.deck = this.buildDeck();
   }
 
-  buildDeck() {
+  buildDeck(previous) {
     const cards =
       this.mode === "double-deck" ? [...this.items, ...this.items] : this.items;
-    return shuffle(cards);
+    let best = shuffle(cards);
+    let bestRepeats = countBackToBack(best, previous);
+    for (let attempt = 1; attempt < MAX_SHUFFLES && bestRepeats > 0; attempt++) {
+      const deck = shuffle(cards);
+      const repeats = countBackToBack(deck, previous);
+      if (repeats < bestRepeats) {
+        best = deck;
+        bestRepeats = repeats;
+      }
+    }
+    return best;
   }
 
   next() {
@@ -52,12 +71,7 @@ export default class Shuffler {
     }
     const item = this.deck.shift();
     if (this.deck.length === 0) {
-      this.deck = this.buildDeck();
-      // avoid drawing the same name twice in a row across the reshuffle,
-      // unless the deck has only one distinct name
-      while (new Set(this.items).size > 1 && this.deck[0] === item) {
-        this.deck = this.buildDeck();
-      }
+      this.deck = this.buildDeck(item);
     }
     return item;
   }

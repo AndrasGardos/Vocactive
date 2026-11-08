@@ -12,7 +12,7 @@ Offline (PWA) capabilities coming soon :)
 When starting a session you can choose how names are drawn:
 - **Teljesen véletlenszerű (totally random)** – every draw is independent, so the same student may come up several times in a row.
 - **Egy pakli (one deck)** – every student is drawn exactly once before the deck is reshuffled.
-- **Dupla pakli (double deck)** – as if each student's name were on two cards: everyone can be drawn at most twice, and the deck is only reshuffled once it runs out.
+- **Dupla pakli (double deck)** – as if each student's name were on two cards: everyone is drawn exactly twice before the deck is reshuffled, but never twice in a row.
 
 ## Development
 Built with React, MUI and Vite. Requires Node.js 22.22 or newer.
