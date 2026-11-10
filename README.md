@@ -14,6 +14,19 @@ When starting a session you can choose how names are drawn:
 - **Egy pakli (one deck)** – every student is drawn exactly once before the deck is reshuffled.
 - **Dupla pakli (double deck)** – as if each student's name were on two cards: everyone is drawn exactly twice before the deck is reshuffled, but never twice in a row.
 
+## Display styles
+Independently of the drawing mode, you can pick how the name is revealed:
+- **Klasszikus (classic)** – a huge name on a full-screen color, instantly.
+- **Szerencsekerék (wheel of fortune)** – every student is a slice; the wheel spins, ticks and slowly stops.
+- **Reflektor (spotlight)** – names on a dark stage; a spotlight hops from name to name, then the chosen one steps to center stage.
+- **Reptéri tábla (departure board)** – a clattering split-flap board that spells out the name letter by letter.
+- **Lufipukkasztás (balloon pop)** – every name is a balloon; they pop one by one and the last one left answers.
+- **Golyózó (Galton board)** – a ball bounces down through pegs and lands in a student's bucket. The bounce path is truly random; the drawn name is placed in the bucket where it ends.
+- **Horgászat (fishing)** – names are fish in a lake; a few nibble at the hook, but only one gets caught.
+- **Ki rejtőzik? (who's hiding?)** – the name hides behind a wall of tiles that fall off one by one, so the class can guess. Click to reveal it at once.
+
+Click/tap or press Space/Enter for the next draw. Sounds are synthesized in the browser and can be muted from the toolbar.
+
 ## Development
 Built with React, MUI and Vite. Requires Node.js 22.22 or newer.
 

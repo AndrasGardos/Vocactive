@@ -1,0 +1,100 @@
+.galton-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #0d3b8c;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 10vmin 10vmin, 10vmin 10vmin, 2vmin 2vmin, 2vmin 2vmin;
+  font-family: "Caveat", cursive;
+}
+
+.galton-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.galton-title {
+  fill: rgba(255, 255, 255, 0.45);
+  font-size: 30px;
+}
+
+.galton-funnel,
+.galton-wall {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 3;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.galton-peg {
+  fill: #e8f0ff;
+  transition: fill 0.4s;
+}
+
+.galton-peg.hit {
+  fill: #ffd23f;
+  animation: galton-ping 0.35s ease-out;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@keyframes galton-ping {
+  from { transform: scale(2.2); }
+}
+
+.galton-ball {
+  fill: #ff8a3d;
+  stroke: #fff3d6;
+  stroke-width: 2;
+  filter: drop-shadow(0 0 6px #ffb347);
+}
+
+.galton-glow {
+  fill: rgba(255, 210, 63, 0.35);
+  animation: galton-flash 0.4s steps(1) 4;
+}
+
+@keyframes galton-flash {
+  50% { fill: rgba(255, 210, 63, 0.75); }
+}
+
+.galton-label {
+  transition: transform 0.7s cubic-bezier(0.6, 0, 0.3, 1);
+}
+
+.galton-label text {
+  fill: white;
+  font-family: "Caveat", cursive;
+  font-weight: 700;
+}
+
+.galton-label.winner text {
+  fill: #ffd23f;
+}
+
+.galton-banner {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  padding: 1vmin 5vmin;
+  border: 0.6vmin solid white;
+  border-radius: 2vmin;
+  background: #0d3b8c;
+  color: #ffd23f;
+  font-weight: 700;
+  white-space: nowrap;
+  box-shadow: 0 0 0 1vmin rgba(13, 59, 140, 0.6), 0 2vmin 6vmin rgba(0, 0, 0, 0.5);
+  animation: galton-banner 0.5s cubic-bezier(0.2, 1.5, 0.4, 1) 0.2s both;
+}
+
+@keyframes galton-banner {
+  from { transform: translate(-50%, -50%) scale(0); }
+  to { transform: translate(-50%, -50%) scale(1) rotate(-2deg); }
+}

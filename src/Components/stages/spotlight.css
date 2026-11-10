@@ -1,0 +1,86 @@
+.spot-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 120%, #3b2a1a 0%, transparent 55%),
+    linear-gradient(#0d0b14, #1a1424);
+}
+
+.spot-curtain {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 7vw;
+  z-index: 3;
+  background: repeating-linear-gradient(90deg, #6d0a12 0 1.5vw, #9c1622 1.5vw 2.5vw, #6d0a12 2.5vw 3.5vw);
+  box-shadow: 0 0 4vw rgba(0, 0, 0, 0.9);
+}
+
+.spot-curtain.left { left: 0; border-bottom-right-radius: 60% 20%; }
+.spot-curtain.right { right: 0; border-bottom-left-radius: 60% 20%; }
+
+.spot-name {
+  position: absolute;
+  white-space: nowrap;
+  font-family: "Playfair Display", serif;
+  color: #f4ead5;
+  transition:
+    left 0.8s cubic-bezier(0.5, 0, 0.2, 1),
+    top 0.8s cubic-bezier(0.5, 0, 0.2, 1),
+    font-size 0.8s cubic-bezier(0.5, 0, 0.2, 1),
+    transform 0.8s,
+    color 0.3s,
+    opacity 0.6s,
+    text-shadow 0.3s;
+}
+
+.spot-name.lit {
+  color: #fff;
+  text-shadow: 0 0 2vmin rgba(255, 230, 160, 0.9);
+}
+
+.spot-stage.revealed .spot-name:not(.winner) {
+  opacity: 0.12;
+}
+
+.spot-name.winner {
+  z-index: 2;
+  color: #ffe9a8;
+  text-shadow:
+    0 0 3vmin rgba(255, 200, 80, 0.9),
+    0 0.6vmin 0 #7a4b00;
+  animation: spot-pulse 1.2s ease-in-out 0.8s infinite alternate;
+}
+
+@keyframes spot-pulse {
+  to { text-shadow: 0 0 7vmin rgba(255, 210, 100, 1), 0 0.6vmin 0 #7a4b00; }
+}
+
+/* a transparent hole with a huge shadow darkens everything except the beam */
+.spot-beam {
+  position: absolute;
+  z-index: 1;
+  width: 26vmin;
+  height: 26vmin;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255, 240, 190, 0.18), transparent 70%);
+  box-shadow:
+    0 0 0 300vmax rgba(5, 3, 10, 0.55),
+    inset 0 0 5vmin 3vmin rgba(5, 3, 10, 0.55);
+  transition-property: left, top, width, height, box-shadow;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.spot-beam.on {
+  box-shadow:
+    0 0 0 300vmax rgba(5, 3, 10, 0.88),
+    inset 0 0 5vmin 3vmin rgba(5, 3, 10, 0.88);
+}
+
+.spot-stage.revealed .spot-beam {
+  width: 95vmin;
+  height: 60vmin;
+}

@@ -1,0 +1,119 @@
+.wheel-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at 50% 45%, #2b1055 0%, #12062b 70%);
+}
+
+.wheel-rays {
+  position: absolute;
+  width: 250vmax;
+  height: 250vmax;
+  background: repeating-conic-gradient(rgba(255, 255, 255, 0.05) 0deg 10deg, transparent 10deg 20deg);
+  animation: wheel-rays 60s linear infinite;
+}
+
+@keyframes wheel-rays {
+  to { transform: rotate(360deg); }
+}
+
+.wheel-wrap {
+  position: relative;
+  width: 92vmin;
+  height: 92vmin;
+}
+
+.wheel-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2vmin 4vmin rgba(0, 0, 0, 0.6));
+}
+
+.wheel-rim {
+  fill: #ffcf40;
+  stroke: #b8860b;
+  stroke-width: 2;
+}
+
+.wheel-svg .slice path {
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 0.6;
+}
+
+.wheel-svg .slice text {
+  fill: white;
+  font-family: "Fredoka", "Roboto", sans-serif;
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 0.8px;
+}
+
+.wheel-svg .slice.dim { filter: brightness(0.45) saturate(0.6); }
+.wheel-svg .slice.winner path { animation: wheel-win 0.5s ease-in-out infinite alternate; }
+
+@keyframes wheel-win {
+  to { filter: brightness(1.35); }
+}
+
+.wheel-peg { fill: #fff7d6; }
+
+.wheel-hub {
+  fill: #ffcf40;
+  stroke: #b8860b;
+  stroke-width: 2;
+}
+
+.wheel-hub-text {
+  font-family: "Fredoka", sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  fill: #6b3d00;
+}
+
+.wheel-pointer {
+  position: absolute;
+  right: -3vmin;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 3.5vmin solid transparent;
+  border-bottom: 3.5vmin solid transparent;
+  border-right: 9vmin solid #ffffff;
+  transform: translateY(-50%);
+  transform-origin: 100% 50%;
+  filter: drop-shadow(0 0.5vmin 0.8vmin rgba(0, 0, 0, 0.5));
+  animation: wheel-flick 0.12s ease-out;
+}
+
+@keyframes wheel-flick {
+  0% { transform: translateY(-50%) rotate(-18deg); }
+  100% { transform: translateY(-50%) rotate(0); }
+}
+
+.wheel-banner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  padding: 2vmin 6vmin;
+  border: 1vmin solid white;
+  border-radius: 4vmin;
+  color: white;
+  font-family: "Fredoka", "Roboto", sans-serif;
+  font-weight: 600;
+  font-size: 11vmin;
+  white-space: nowrap;
+  max-width: 96vw;
+  text-shadow: 0 0.5vmin 0 rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2vmin 6vmin rgba(0, 0, 0, 0.6);
+  animation: wheel-banner 0.6s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+  animation-delay: 0.3s;
+}
+
+@keyframes wheel-banner {
+  from { transform: translate(-50%, -50%) scale(0) rotate(-10deg); }
+  to { transform: translate(-50%, -50%) scale(1) rotate(-3deg); }
+}

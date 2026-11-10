@@ -1,0 +1,100 @@
+.bubble-stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.6), transparent 30%),
+    linear-gradient(180deg, #a1e3ff 0%, #d6f3ff 60%, #fff4d6 100%);
+}
+
+.bubble {
+  position: absolute;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  transition:
+    left 0.9s cubic-bezier(0.3, 1.4, 0.5, 1),
+    top 0.9s cubic-bezier(0.3, 1.4, 0.5, 1),
+    width 0.9s cubic-bezier(0.3, 1.4, 0.5, 1);
+}
+
+.bubble-body {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.85) 0 8%, transparent 22%),
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--color) 75%, white), var(--color) 70%, color-mix(in srgb, var(--color) 70%, black));
+  box-shadow: 0 1.5vmin 3vmin rgba(0, 60, 100, 0.25);
+  animation: bubble-float var(--float-ms) ease-in-out var(--float-delay) infinite alternate,
+    bubble-in 0.6s cubic-bezier(0.3, 1.6, 0.5, 1);
+  transition: transform 0.15s, opacity 0.15s;
+}
+
+.bubble-body span {
+  color: white;
+  font-family: "Fredoka", "Roboto", sans-serif;
+  font-weight: 600;
+  white-space: nowrap;
+  text-shadow: 0 0.3vmin 0 rgba(0, 0, 0, 0.25);
+}
+
+@keyframes bubble-float {
+  from { transform: translate(-3%, 4%) scale(0.97, 1.03); }
+  to { transform: translate(3%, -4%) scale(1.03, 0.97); }
+}
+
+@keyframes bubble-in {
+  from { scale: 0; }
+}
+
+.bubble-stage.tense .bubble:not(.popped) .bubble-body {
+  animation: bubble-wobble 0.18s ease-in-out infinite alternate;
+}
+
+@keyframes bubble-wobble {
+  from { transform: scale(1.06, 0.94) rotate(-3deg); }
+  to { transform: scale(0.94, 1.06) rotate(3deg); }
+}
+
+.bubble.popped .bubble-body {
+  animation: none;
+  transform: scale(1.35);
+  opacity: 0;
+}
+
+.bubble.winner { z-index: 2; }
+
+.bubble.winner .bubble-body {
+  animation: bubble-float 2s ease-in-out infinite alternate;
+  box-shadow: 0 0 0 1.5vmin white, 0 3vmin 8vmin rgba(0, 60, 100, 0.45);
+}
+
+.bubble-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bubble-burst i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 12%;
+  height: 12%;
+  margin: -6%;
+  border-radius: 50%;
+  background: var(--color);
+  opacity: 0;
+}
+
+.bubble.popped .bubble-burst i {
+  animation: bubble-burst 0.45s ease-out forwards;
+}
+
+@keyframes bubble-burst {
+  0% { opacity: 1; transform: rotate(var(--angle)) translateX(0) scale(1); }
+  100% { opacity: 0; transform: rotate(var(--angle)) translateX(260%) scale(0.2); }
+}

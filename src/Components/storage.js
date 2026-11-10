@@ -14,3 +14,16 @@ export const loadGroups = () =>
 
 export const saveGroups = (groups) =>
   localStorage.setItem(STORAGE_KEY, JSON.stringify(groups));
+
+const PREFS_KEY = "playPrefs";
+
+export const loadPrefs = () => {
+  try {
+    return JSON.parse(localStorage.getItem(PREFS_KEY) ?? "{}");
+  } catch {
+    return {};
+  }
+};
+
+export const savePrefs = (prefs) =>
+  localStorage.setItem(PREFS_KEY, JSON.stringify(prefs));
