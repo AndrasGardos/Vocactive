@@ -67,6 +67,12 @@ export const sounds = {
     tone({ freq: 500, endFreq: 120, duration: 0.08, gain: 0.15 });
   },
   clunk: () => tone({ freq: 160, endFreq: 60, duration: 0.15, type: "triangle", gain: 0.3 }),
+  plink: (pitch = 1) =>
+    tone({ freq: 1200 * pitch, endFreq: 700 * pitch, duration: 0.07, type: "triangle", gain: 0.1 }),
+  splash: () => {
+    noise({ duration: 0.35, gain: 0.5, filterFreq: 900 });
+    noise({ duration: 0.2, gain: 0.25, filterFreq: 3000, delay: 0.05 });
+  },
   fanfare: () =>
     [523.25, 659.25, 783.99, 1046.5].forEach((freq, i) =>
       tone({ freq, duration: i === 3 ? 0.6 : 0.16, type: "triangle", gain: 0.15, delay: i * 0.11 })

@@ -74,6 +74,7 @@ export default function Play() {
   const [stageId, setStageId] = useState(validId(STAGES, prefs.stage, DEFAULT_STAGE));
   const [round, setRound] = useState(null);
   const [settledId, setSettledId] = useState(null);
+  const [skipId, setSkipId] = useState(null);
   const [sound, setSound] = useState(isSoundEnabled);
 
   useEffect(lockLandscape, []);
@@ -82,13 +83,18 @@ export default function Play() {
 
   const busy = round?.draw != null && settledId !== round.draw.id;
 
+  const stage = STAGES.find((s) => s.id === stageId);
+
   const nextName = useCallback(() => {
-    if (busy) return;
+    if (busy) {
+      if (stage.skippable) setSkipId(round.draw.id);
+      return;
+    }
     setRound((r) => ({
       ...r,
       draw: { name: r.nameShuffler.next(), id: (r.draw?.id ?? 0) + 1 },
     }));
-  }, [busy]);
+  }, [busy, stage, round]);
 
   useEffect(() => {
     if (!round) return;
@@ -169,7 +175,7 @@ export default function Play() {
     );
   }
 
-  const { Component } = STAGES.find((s) => s.id === stageId);
+  const { Component } = stage;
   const count = round.draw?.id ?? 0;
 
   return (
@@ -178,7 +184,12 @@ export default function Play() {
       onChange={(isFullScreen) => isFullScreen && lockLandscape()}
     >
       <div className={`container ${busy ? "busy" : ""}`} onClick={nextName}>
-        <Component members={group.members} draw={round.draw} onSettled={onSettled} />
+        <Component
+          members={group.members}
+          draw={round.draw}
+          skip={round.draw != null && skipId === round.draw.id}
+          onSettled={onSettled}
+        />
         {!round.draw && <div className="start-hint">Kattints a sorsoláshoz!</div>}
         <div className="toolbar" onClick={(event) => event.stopPropagation()}>
           <IconButton aria-label="Vissza a beállításokhoz" onClick={() => setRound(null)}>
